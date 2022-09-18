@@ -1,18 +1,32 @@
 package com.sysbot32.robotmc.core.server.power;
 
+import java.util.Objects;
+
 public class PowerService {
-    public static Power status() {
+    private static PowerService instance = null;
+
+    private PowerService() {
+    }
+
+    public Power status() {
         return Power.INACTIVE;
     }
 
-    public static void start() {
+    public void start() {
     }
 
-    public static void restart() {
+    public void restart() {
         stop();
         start();
     }
 
-    public static void stop() {
+    public void stop() {
+    }
+
+    public synchronized static PowerService getInstance() {
+        if (Objects.isNull(instance)) {
+            instance = new PowerService();
+        }
+        return instance;
     }
 }

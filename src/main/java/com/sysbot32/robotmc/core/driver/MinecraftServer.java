@@ -4,8 +4,11 @@ import org.apache.commons.exec.*;
 
 import java.io.*;
 import java.util.List;
+import java.util.Objects;
 
 public class MinecraftServer {
+    private static MinecraftServer instance = null;
+
     private static final String MINECRAFT_DIR = "~/minecraft";
     private static final String JVM_HEAP_SIZE = "1024M";
     private static final String SERVER_JAR = "server.jar";
@@ -17,7 +20,7 @@ public class MinecraftServer {
     private ByteArrayOutputStream out;
     private PrintWriter in;
 
-    public MinecraftServer() {
+    private MinecraftServer() {
         this.commandLine = CommandLine.parse(String.format("java -Xms%s -Xmx%s -jar %s %s", JVM_HEAP_SIZE, JVM_HEAP_SIZE, SERVER_JAR, String.join(" ", OPTIONS)));
     }
 
@@ -56,5 +59,12 @@ public class MinecraftServer {
 
     public void write(final String input) {
         this.in.println(input);
+    }
+
+    public synchronized static MinecraftServer getInstance() {
+        if (Objects.isNull(instance)) {
+            instance = new MinecraftServer();
+        }
+        return instance;
     }
 }

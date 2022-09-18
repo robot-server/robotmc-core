@@ -2,21 +2,30 @@ package com.sysbot32.robotmc.core.server.properties;
 
 import com.sysbot32.robotmc.core.minecraft.Properties;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Optional;
+import java.util.*;
 
 public class PropertiesService {
-    public static List<Properties> listProperties() {
+    private static PropertiesService instance = null;
+
+    private PropertiesService() {
+    }
+
+    public List<Properties> listProperties() {
         return new ArrayList<>();
     }
 
-    public static Optional<Properties> retrieveProperties(final String filename) {
+    public Optional<Properties> retrieveProperties(final String filename) {
         return Optional.empty();
     }
 
-    public static Optional<Properties> updateProperties(final String filename, final Map<String, String> properties) {
+    public Optional<Properties> updateProperties(final String filename, final Map<String, String> properties) {
         return Optional.empty();
+    }
+
+    public synchronized static PropertiesService getInstance() {
+        if (Objects.isNull(instance)) {
+            instance = new PropertiesService();
+        }
+        return instance;
     }
 }
