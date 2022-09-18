@@ -1,7 +1,9 @@
 package com.sysbot32.robotmc.core;
 
-public class Main {
-    public static void main(String[] args) {
+import com.sysbot32.robotmc.core.server.ServerApplication;
 
+public class Main {
+    public static void main(final String[] args) {
+        ServerApplication.getInstance();
     }
 }
