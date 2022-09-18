@@ -1,22 +1,27 @@
 package com.sysbot32.robotmc.core.server.plugins;
 
+import lombok.Getter;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.RouteGroup;
 
 import java.util.Objects;
 
 import static spark.Spark.get;
-import static spark.Spark.path;
 
 public class PluginController {
     private static PluginController instance = null;
 
+    public static final String PATH = "/plugins";
+    @Getter
+    private final RouteGroup routeGroup;
+
     private PluginController() {
-        path("/plugins", () -> {
+        this.routeGroup = () -> {
             get("", list);
             get("/:filename", retrieve);
-        });
+        };
     }
 
     public final Route list = (final Request request, final Response response) -> {

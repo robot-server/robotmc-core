@@ -8,6 +8,7 @@ import org.eclipse.jetty.websocket.api.annotations.WebSocket;
 
 @WebSocket
 public class WebSocketHandlerImpl implements WebSocketHandler {
+    public static final String PATH = "/socket";
 
     @Override
     @OnWebSocketConnect

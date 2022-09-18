@@ -1,23 +1,29 @@
 package com.sysbot32.robotmc.core.server.properties;
 
+import lombok.Getter;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.RouteGroup;
 
 import java.util.Objects;
 
-import static spark.Spark.*;
-
+import static spark.Spark.get;
+import static spark.Spark.put;
 
 public class PropertiesController {
     private static PropertiesController instance = null;
 
+    public static final String PATH = "/properties";
+    @Getter
+    private final RouteGroup routeGroup;
+
     private PropertiesController() {
-        path("/properties", () -> {
+        this.routeGroup = () -> {
             get("", list);
             get("/:filename", retrieve);
             put("/:filename", update);
-        });
+        };
     }
 
     public final Route list = (final Request request, final Response response) -> {

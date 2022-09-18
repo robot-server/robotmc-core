@@ -1,22 +1,27 @@
 package com.sysbot32.robotmc.core.server.logs;
 
+import lombok.Getter;
 import spark.Request;
 import spark.Response;
 import spark.Route;
+import spark.RouteGroup;
 
 import java.util.Objects;
 
 import static spark.Spark.get;
-import static spark.Spark.path;
 
 public class LogController {
     private static LogController instance = null;
 
+    public static final String PATH = "/logs";
+    @Getter
+    private final RouteGroup routeGroup;
+
     private LogController() {
-        path("/logs", () -> {
+        this.routeGroup = () -> {
             get("", list);
             get("/:filename", retrieve);
-        });
+        };
     }
 
     public final Route list = (final Request request, final Response response) -> {
