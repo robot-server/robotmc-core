@@ -2,7 +2,7 @@ package com.sysbot32.robotmc.core.server;
 
 import static spark.Spark.init;
 
-public class SparkApplication {
+public class ServerApplication {
     static {
         init();
     }
