@@ -16,6 +16,7 @@ public class PowerController {
     public static final String PATH = "/power";
     @Getter
     private final RouteGroup routeGroup;
+    private final PowerService service = PowerService.getInstance();
 
     private PowerController() {
         this.routeGroup = () -> {
@@ -27,18 +28,21 @@ public class PowerController {
     }
 
     public final Route status = (final Request request, final Response response) -> {
-        return "status";
+        return service.status();
     };
 
     public final Route start = (final Request request, final Response response) -> {
+        service.start();
         return "start";
     };
 
     public final Route restart = (final Request request, final Response response) -> {
+        service.restart();
         return "restart";
     };
 
     public final Route stop = (final Request request, final Response response) -> {
+        service.stop();
         return "stop";
     };
 
